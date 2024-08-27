@@ -101,13 +101,12 @@ if not st.session_state.df.empty:
     st.session_state.df = edited_df
     st.session_state.df.to_csv("tickets.csv", index=False)
 
-    # Show some metrics and charts about the ticket.
-    st.header("Statistics")
-
+    # Update metrics based on the updated data
+    num_open_tickets = len(st.session_state.df[st.session_state.df.Status == "Open"])
+    
     # Show metrics side by side using `st.columns` and `st.metric`.
     col1, col2, col3 = st.columns(3)
-    num_open_tickets = len(st.session_state.df[st.session_state.df.Status == "Open"])
-    col1.metric(label="Number of open tickets", value=num_open_tickets, delta=10)
+    col1.metric(label="Number of open tickets", value=num_open_tickets, delta=None)
     col2.metric(label="First response time (hours)", value=5.2, delta=-1.5)
     col3.metric(label="Average resolution time (hours)", value=16, delta=2)
 
